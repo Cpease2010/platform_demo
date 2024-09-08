@@ -1,0 +1,2 @@
+TEST_VAR='I AM A TEST VARIABLE'
+ENV=local
