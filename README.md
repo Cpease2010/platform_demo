@@ -1,7 +1,7 @@
 # platform_demo
 [X] repo  
-[] application  
-[] docker  
+[X] application  
+[X] docker  
 [] github actions  
 [] argoCD  
 [] helm  
