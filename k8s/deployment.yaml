@@ -1,21 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hello-world-app
+  name: platform-demo-app
   labels:
-    app: hello-world
+    app: platform-demo
 spec:
-  replicas: 2
+  replicas: 2  # Number of pod replicas
   selector:
     matchLabels:
-      app: hello-world
+      app: platform-demo
   template:
     metadata:
       labels:
-        app: hello-world
+        app: platform-demo
     spec:
       containers:
-      - name: platform_demo-container
-        image: platform_demo  # Replace with your Docker image
+      - name: platform-demo-container
+        image: platform-demo  # Replace with your Docker image (e.g., your_dockerhub_username/platform-demo-app)
         ports:
-        - containerPort: 5000
+        - containerPort: 5000  # Port exposed by the container
+        env:
+        - name: ENVIRONMENT
+          value: "production"  # Example of an environment variable
