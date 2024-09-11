@@ -20,6 +20,7 @@ This repository represents a simple python app deployed using AWS ECS with Farga
 [X] create service role/user
 [] reduce az, only need 1
 [] clean up git history
+[] create action for refreshing ecr task;
 
 ## Roadblocks
 - Learning curve
@@ -27,5 +28,5 @@ This repository represents a simple python app deployed using AWS ECS with Farga
     - Installing, setting up accounts, environments variables, aws
 - Debugging AI responses
 - Configuring security groups
-- Setting up health check to make a valid target
+- Setting up health check to make a valid target for target group
 - Updating app and docker to support a Flask app

@@ -1,10 +1,10 @@
 {
     "family": "platform-demo-task",
-    "executionRoleArn": "arn:aws:iam::524993829278:role/ecsTaskExecutionRole",
+    "executionRoleArn": "arn:aws:iam::524993829278:role/ecs-task-execution-role",
     "containerDefinitions": [
       {
         "name": "platform-demo",
-        "image": "YOUR_ECR_REGISTRY/platform-demo:latest",
+        "image": "platform-demo/platform-demo:latest",
         "essential": true,
         "portMappings": [
           {
@@ -27,6 +27,6 @@
     "networkMode": "awsvpc",
     "cpu": "256",
     "memory": "512",
-    "taskRoleArn": "arn:aws:iam::ACCOUNT_ID:role/ecsTaskExecutionRole"
+    "taskRoleArn": "arn:aws:iam::524993829278:role/ecs-task-execution-role"
   }
   

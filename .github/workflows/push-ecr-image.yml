@@ -1,44 +1,48 @@
-name: Build and Push to AWS ECR
+name: Build and Push Docker Image to Amazon ECR
 
 on:
   push:
     branches:
-      - main
+      - main  # You can change this to any branch you want the workflow to run on
+
+env:
+  AWS_REGION: us-east-1                   # Set this to your preferred AWS region
+  ECR_REPOSITORY: platform-demo           # Set this to your ECR repository name
+  CONTAINER_NAME: platform-demo           # Set this to the container name
+  IMAGE_TAG: latest                       # Tag for the image
+
+permissions:
+  contents: read
 
 jobs:
   build-and-push:
+    name: Build, Tag, and Push Docker Image to ECR
     runs-on: ubuntu-latest
-
-    env:
-      AWS_REGION: us-east-1
-      ECR_REPOSITORY: platform-demo
-      IMAGE_TAG: latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
-    - name: Log in to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
       with:
-        region: ${{ env.AWS_REGION }}
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
 
-    - name: Build, tag, and push the Docker image
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
       run: |
-        # Define variables
-        IMAGE_URI="${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
-
         # Build the Docker image
-        docker build -t $IMAGE_URI .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        
+        # Tag the Docker image
+        docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }}
 
-        # Push the image to Amazon ECR
-        docker push $IMAGE_URI
-
-    - name: Logout from Amazon ECR
-      run: docker logout ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com
+        # Push the Docker image to ECR
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
