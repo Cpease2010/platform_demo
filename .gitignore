@@ -20,3 +20,15 @@ crash.log
 
 # Misc
 .DS_Store
+
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Lock files created during Terraform operations
+.terraform/
+.terraform.lock.hcl
+*.tfstate.lock.info
+
+# Terraform crash log
+crash.log

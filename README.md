@@ -16,6 +16,7 @@ This repo is a simple hello world python app. It can be run directly with `pytho
 [] separate out IaC
 [] create service role/user
 [] reduce az, only need 1
+[] clean up git history
 
 ## Roadblocks
 - Learning curve
