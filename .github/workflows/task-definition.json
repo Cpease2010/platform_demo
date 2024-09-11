@@ -1,0 +1,32 @@
+{
+    "family": "platform-demo-task",
+    "executionRoleArn": "arn:aws:iam::524993829278:role/ecsTaskExecutionRole",
+    "containerDefinitions": [
+      {
+        "name": "platform-demo",
+        "image": "YOUR_ECR_REGISTRY/platform-demo:latest",
+        "essential": true,
+        "portMappings": [
+          {
+            "containerPort": 80
+          }
+        ],
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/platform-demo",
+            "awslogs-region": "us-east-1",
+            "awslogs-stream-prefix": "pd-ecs"
+          }
+        }
+      }
+    ],
+    "requiresCompatibilities": [
+      "FARGATE"
+    ],
+    "networkMode": "awsvpc",
+    "cpu": "256",
+    "memory": "512",
+    "taskRoleArn": "arn:aws:iam::ACCOUNT_ID:role/ecsTaskExecutionRole"
+  }
+  
