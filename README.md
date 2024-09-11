@@ -1,6 +1,6 @@
 # Platform Demo
-[Deployed App](http://ecs-load-balancer-1520435687.us-east-1.elb.amazonaws.com)
-[App Health Check](http://ecs-load-balancer-1520435687.us-east-1.elb.amazonaws.com/health)
+[Deployed App](http://ecs-load-balancer-885110768.us-east-1.elb.amazonaws.com)
+[App Health Check](http://ecs-load-balancer-885110768.us-east-1.elb.amazonaws.com/health)
 
 This repository represents a simple python app deployed using AWS ECS with Fargate.
 
@@ -20,7 +20,8 @@ This repository represents a simple python app deployed using AWS ECS with Farga
 [X] create service role/user
 [] reduce az, only need 1
 [] clean up git history
-[] create action for refreshing ecr task;
+[] create action for refreshing ecr task
+[] clean up job conditions
 
 ## Roadblocks
 - Learning curve
